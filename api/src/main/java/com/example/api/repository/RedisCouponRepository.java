@@ -17,4 +17,11 @@ public class RedisCouponRepository {
                 .opsForValue()
                 .increment("coupon_count");
     }
+
+    // redis Set을 이용한 쿠폰 발급
+    public Long add(Long userId) {
+        return redisTemplate
+                .opsForSet()
+                .add("applied_user", userId.toString());
+    }
 }

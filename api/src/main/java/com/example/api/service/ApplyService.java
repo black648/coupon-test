@@ -18,8 +18,12 @@ public class ApplyService {
     }
 
     public void apply(Long userId) {
-        Long count = redisCouponRepository.increment();
+        Long apply = redisCouponRepository.add(userId);
+        if(apply != 1) {
+            return;
+        }
 
+        Long count = redisCouponRepository.increment();
         if(count > 100) {
             return;
         }
